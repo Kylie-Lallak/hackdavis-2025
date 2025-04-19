@@ -1,0 +1,29 @@
+{
+  "name": "hackdavis-2025",
+  "version": "1.0.0",
+  "description": "The repo for hack davis 2025",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start:backend & npm run start:frontend",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm start",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "install": "npm run install:backend && npm run install:frontend",
+    "install:backend": "cd backend && npm install",
+    "install:frontend": "cd frontend && npm install"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kylie-Lallak/hackdavis-2025.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kylie-Lallak/hackdavis-2025/issues"
+  },
+  "homepage": "https://github.com/Kylie-Lallak/hackdavis-2025#readme"
+}

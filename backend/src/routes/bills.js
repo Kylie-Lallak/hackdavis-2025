@@ -22,7 +22,11 @@ const Bill = mongoose.model('Bill', billSchema);
 // Configure multer for handling file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Store uploaded files in the 'uploads/' directory
+    const uploadDir = 'uploads/';
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir);
+    }
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -37,8 +41,10 @@ const upload = multer({ storage: storage });
 router.get('/', async (req, res) => {
   try {
     // Use Mongoose to fetch data from the database (example: fetching all bills)
-    const bills = await Bill.find();
-    res.json(bills);
+    // const bills = await Bill.find();
+    // res.json(bills);
+
+    res.json({ooga: "booga"})
   } catch (error) {
     console.error('Error fetching bills:', error);
     res.status(500).json({ error: 'Failed to fetch bills' });
@@ -54,48 +60,48 @@ router.post('/', upload.single('pdf'), async (req, res) => {
     const jsonData = req.body; // The JSON object
     const pdfFile = req.file; // The uploaded PDF file
 
-    if (!pdfFile) {
-      return res.status(400).json({ error: 'PDF file is required' });
-    }
+  //  if (!pdfFile) {
+  //    return res.status(400).json({ error: 'PDF file is required' });
+  //  }
 
-    // Step 2: Extract text from the PDF using an API
-    const pdfText = await extractTextFromPdf(pdfFile.path); // Implement this function
+  //  // Step 2: Extract text from the PDF using an API
+  //  // const pdfText = await extractTextFromPdf(pdfFile.path); // Implement this function
 
-    if (!pdfText) {
-      return res.status(500).json({ error: 'Failed to extract text from PDF' });
-    }
+  //  if (!pdfText) {
+  //    return res.status(500).json({ error: 'Failed to extract text from PDF' });
+  //  }
 
-    // Step 3: Send a query to Gemini
-    const geminiResponse = await sendQueryToGemini(jsonData, pdfText); // Implement this
+  //  // Step 3: Send a query to Gemini
+  //  const geminiResponse = await sendQueryToGemini(jsonData, pdfText); // Implement this
 
-    // Delete the temporary PDF file
-    fs.unlink(pdfFile.path, (err) => {
-      if (err) {
-        console.error('Error deleting temporary file:', err);
-      }
-    });
+  //  // Delete the temporary PDF file
+  //  fs.unlink(pdfFile.path, (err) => {
+  //    if (err) {
+  //      console.error('Error deleting temporary file:', err);
+  //    }
+  //  });
 
-    // Step 4: Save to MongoDB using Mongoose
-    const newBill = new Bill({
-      /* Populate the Bill model with data from jsonData and/or the extracted PDF text.
-          This is an example - adjust it based on the fields in your billSchema and the
-          structure of your jsonData and pdfText. */
-      title: jsonData.title, // Example:  assuming jsonData has a title field
-      description: pdfText,     //  Store the extracted text
-      amount: jsonData.amount,
-      date: new Date(),
-      //  ... any other fields
-    });
+  //  // Step 4: Save to MongoDB using Mongoose
+  //  const newBill = new Bill({
+  //    /* Populate the Bill model with data from jsonData and/or the extracted PDF text.
+  //        This is an example - adjust it based on the fields in your billSchema and the
+  //        structure of your jsonData and pdfText. */
+  //    title: jsonData.title, // Example:  assuming jsonData has a title field
+  //    description: pdfText,     //  Store the extracted text
+  //    amount: jsonData.amount,
+  //    date: new Date(),
+  //    //  ... any other fields
+  //  });
 
-    await newBill.save(); // Save the new bill to the database
+  //  await newBill.save(); // Save the new bill to the database
 
-    res.json({
-      message: 'Bill processed and saved successfully',
-      data: jsonData,
-      pdfText: pdfText,
-      geminiResponse: geminiResponse,
-      billId: newBill._id, //  Return the ID of the saved bill
-    });
+  //  res.json({
+  //    message: 'Bill processed and saved successfully',
+  //    data: jsonData,
+  //    pdfText: pdfText,
+  //    geminiResponse: geminiResponse,
+  //    billId: newBill._id, //  Return the ID of the saved bill
+  //  });
   } catch (error) {
     console.error('Error processing bill:', error);
     res.status(500).json({ error: 'Failed to process bill', details: error.message });

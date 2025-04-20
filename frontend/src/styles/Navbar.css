@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;900&display=swap');
+
+
+
+#navbar{
+    background-color: rgb(251, 251, 251);
+    width: 100vw;
+    height: 10vh;
+    margin-left: -1vh;
+    margin-top: -2vh;
+    font-family: Roboto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#nav-left{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: Roboto;
+    font-weight: 100;
+    margin-left:3rem;
+    font-size: 30px;
+}
+#nav-right{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+    font-family: Inter;
+    font-weight: 300;
+    font-size: 16px;
+    margin-right:2rem
+   
+
+}
+.gradient-text {
+    background: linear-gradient(to right, #8a60fd, #59ccde); /* your gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+    /* Optional for non-webkit browsers */
+    background-clip: text;
+    color: transparent;
+  }
+  #logo{
+    width: 50px;
+  }
+
+  .trans-btn{
+
+    padding: 1rem;
+    border-radius: 15px;
+  }
+  .trans-btn:hover {
+    background-color:  rgb(243, 243, 243); 
+  }
+  .gradient-btn{
+    background-image: linear-gradient(to right, #59ccde, #8a60fd);
+    padding: 0.8rem;
+    border-radius: 25px;
+    color: white;
+    font-weight: 500;
+  }
+  .gradient-btn:hover {
+    background-image: linear-gradient(to right, #4eb4c4, #6b4ac6);
+  }

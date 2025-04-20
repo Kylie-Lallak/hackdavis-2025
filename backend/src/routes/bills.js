@@ -97,7 +97,6 @@ async function sendQueryToGemini(pdfText) {
   try {
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    console.log(ai)
 
     const geminiQuery = 
       `This is a hospital bill:

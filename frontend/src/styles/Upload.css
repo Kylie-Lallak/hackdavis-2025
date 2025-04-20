@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;700;900&display=swap');
+
+.upload-title {
+    font-family: Inter;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.upload-page {
+    background-color: rgb(245, 245, 245);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin-top: -2vh;
+}
+
+.upload-deatil {
+    background-image: linear-gradient(to top right, #eaf9fb, #ece7fb);
+    padding: 1rem;
+    border-radius: 15px;
+    width: 815px;
+    margin-top: 2rem;
+    border: 1px solid rgb(209, 215, 231);
+}
+
+.info-detail {
+    font-family: Inter;
+}
+
+.info-title {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 24px;
+    color: rgb(34, 34, 34);
+    margin-left: 1rem;
+}
+
+.list-item {
+    font-family: Inter;
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.upload-back {
+    display: flex;
+    align-items: center;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.back-arrow {
+    width: 35px;
+}
+
+.text {
+    font-family: Inter;
+    font-size: 16px;
+    color: rgb(131, 131, 131);
+    text-align: center;
+}
+
+.link-upload {
+    color: black;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.upload-box {
+    background-color: rgb(241, 241, 241);
+    padding: 1rem;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 20px;
+    height: 20vh;
+    margin-left: 6rem;
+    margin-right: 6rem;
+    text-align: center;
+}
+
+.file-upload-label {
+    display: flex;
+    justify-content: center; 
+    align-items: center;   
+    width: 750px;
+    height: 150px;
+    padding: 15px;
+    border: 2px dashed #ccc; 
+    border-radius: 5px;
+    background-color: white; 
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    position: relative; 
+}
+
+.file-upload-label:hover {
+    background-color: #f0f0f0;
+}
+
+.upload-input {
+    display: none; 
+}
+
+.inside-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.submitBtn {
+    background-image: linear-gradient(to right, #a0e1eb, #ae96f2);
+    padding: 0.8rem;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+    margin-top: 20px;
+    height: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+}
+
+.pdfImg {
+    width: 40px;
+}
+
+.choose-file-text {
+    font-size: 18px;
+    color: #676767;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 500;
+}
+
+.box-header {
+    text-align: left;
+    margin-left: -13rem;
+    font-family: Inter;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: 57%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    height: 45vh;
+}
+
+/* New result section styling */
+.result-container {
+    background-image: linear-gradient(to top right, #eaf9fb, #ece7fb);
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    width: 815px;
+    margin-top: 2rem;
+    border: 1px solid rgb(209, 215, 231);
+    font-family: Inter;
+    color: #222;
+}
+
+.result-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #222;
+}
+
+.result-subtitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1rem 0 0.5rem;
+    color: #444;
+}
+
+.result-list {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.result-list li {
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: #333;
+}

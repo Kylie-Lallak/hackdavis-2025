@@ -6,6 +6,9 @@ import Logo from '../assets/paper.svg'
 
 export default function Navbar() {
   return (
+    <div>
+
+   
     <div id="navbar">
       <div id='nav-left'>
         <img src={Logo} id='logo'></img>
@@ -16,6 +19,10 @@ export default function Navbar() {
         <p className='gradient-btn'>Create Account</p>
 
       </div>
+      
+    </div>
+    <div class="grey-line"></div>
+
     </div>
   )
 }

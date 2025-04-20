@@ -32,6 +32,8 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
+    text-decoration: none;
+
 
 }
 #home-text2{
@@ -58,5 +60,11 @@
     color: rgb(119, 119, 119);
     font-family: 'Inter', sans-serif;
     font-size: 15px;
+    text-decoration: none;
+
+
+}
+#link{
+    text-decoration: none;
 
 }

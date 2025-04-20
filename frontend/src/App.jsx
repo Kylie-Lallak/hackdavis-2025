@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom' // ✅ Don't forget this
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import Home from './Pages/Home'
+import Upload from './Pages/Upload' // ✅ Make sure this exists
 
 import './App.css'
 
@@ -10,11 +12,15 @@ function App() {
 
   return (
     <>
-     <Navbar />
-     <Home />
-     <Footer />
+      <Navbar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/upload' element={<Upload />} />
+      </Routes>
+      <Footer />
     </>
   )
 }
 
 export default App
+

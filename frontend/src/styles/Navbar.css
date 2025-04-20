@@ -4,14 +4,15 @@
 
 
 #navbar{
-    background-color: rgb(246, 246, 246);
+   
     width: 100vw;
-    height: 10vh;
+    height: 7vh;
     margin-left: -1vh;
-    margin-top: -2vh;
+  
     font-family: Roboto;
     display: flex;
     justify-content: space-between;
+
 }
 
 #nav-left{
@@ -54,14 +55,27 @@
   }
   .trans-btn:hover {
     background-color:  rgb(243, 243, 243); 
+    text-decoration: none;
+
   }
   .gradient-btn{
     background-image: linear-gradient(to right, #59ccde, #8a60fd);
     padding: 0.8rem;
     border-radius: 25px;
     color: white;
+    text-decoration: none;
+
     font-weight: 500;
   }
   .gradient-btn:hover {
     background-image: linear-gradient(to right, #4eb4c4, #6b4ac6);
+    text-decoration: none;
+
+  }
+  .grey-line {
+    border-top: 1px solid #d7d7d7; /* light grey */
+    width: 100%;
+    text-decoration: none;
+
+    margin: 1rem 0;
   }

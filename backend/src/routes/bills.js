@@ -6,6 +6,11 @@ const multer = require('multer'); // For handling file uploads (the PDF)
 const fs = require('fs');
 const path = require('path');
 
+const { GoogleGenAI } = require('@google/genai');
+
+
+require('dotenv').config()
+
 
 
 // Define Mongoose schema for a Bill
@@ -64,78 +69,59 @@ router.post('/', upload.single('pdf'), async (req, res) => {
   try {
 
     const scribe = await import('scribe.js-ocr'); // Dynamic import
-    console.log(scribe)
+    const extractedText = await scribe.default.extractText([filePath]);
+    // extractedText = "Band Aid: $500, Kool Aid: Free, MRI: $10000"
 
-    console.log(scribe.default.extractText)
-    const extractedText = await scribe.default.extractText([filePath])
+    const response = await sendQueryToGemini(extractedText)
   
-
-    // 3. Clean up: Delete the uploaded PDF file (optional)
     fs.unlinkSync(filePath);
 
-    // 4. Send the response with the extracted text
     res.json({
-      message: 'File uploaded and OCR performed successfully.',
-      filename: req.file.filename,
-      extractedText: extractedText,
+      extractedText: response
     });
+
+    // Gemini Gemini
   } catch (error) {
     // 5. Handle errors robustly
     console.error('Error during OCR or file processing:', error);
-    next(error); // Pass the error to your error-handling middleware (recommended)
+    fs.unlinkSync(filePath);
+    // next(error); // Pass the error to your error-handling middleware (recommended)
     // Or, if you don't have error-handling middleware:
-    // res.status(500).json({ error: 'An error occurred during OCR or file processing.' });
+    res.status(500).json({ error: 'An error occurred during OCR or file processing.' });
   }
 
 });
 
-// Helper function to extract text from PDF (using an example API)
-async function extractTextFromPdf(filePath) {
-  //  Implement this function using a library like pdf-parse,  or an external API.
-  //  This is a placeholder example.  Replace with actual implementation.
+// Helper function to send a query to Gemini 
+async function sendQueryToGemini(pdfText) {
   try {
-    const pdfParse = require('pdf-parse');
-    const data = await pdfParse(fs.readFileSync(filePath));
-    return data.text;
-  } catch (error) {
-    console.error("Error extracting text: ", error);
-    return null;
-  }
-}
 
-// Helper function to send a query to Gemini (placeholder)
-async function sendQueryToGemini(jsonData, pdfText) {
-  //  Replace this with your actual Gemini API call.
-  //  This is a placeholder example.
-  try {
-    const geminiQuery = {
-      prompt: `Analyze the following data and PDF text: 
-        JSON Data: ${JSON.stringify(jsonData)}
-        PDF Text: ${pdfText}
-        
-        Provide a summary.
-        `,
-    };
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    console.log(ai)
 
-    const response = await axios.post(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=YOUR_API_KEY', // Replace with actual Gemini API endpoint
+    const geminiQuery = 
+      `This is a hospital bill:
+      ${pdfText}
+      I want you to respond in a json in the following format:
       {
-        contents: [{
-          parts: [{ text: geminiQuery.prompt }]
-        }]
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      items: [{name, cost}],
+      problem_items: [{index, description}]
       }
-    );
-    console.log("Gemini response:", response.data);
-    return response.data; // Or process the response as needed
+      go through each item in the bill and if it can be disputed, 
+      add it's index and a description of how it can be disputed to the problem_items array. 
+      Only dispute charges if it would help the user.`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: geminiQuery,
+    });
+      
+    return response.text; // Or process the response as needed.
   } catch (error) {
     console.error('Error sending query to Gemini:', error);
-    return { error: 'Failed to query Gemini', details: error.message };
+    throw error; // Re-throw the error to be handled in the main function
   }
 }
+
 
 module.exports = router;

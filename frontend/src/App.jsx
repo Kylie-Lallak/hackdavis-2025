@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom' // ✅ Don't forget this
-import Navbar from './Components/Navbar'
-import Footer from './Components/Footer'
-import Home from './Pages/Home'
-import Upload from './Pages/Upload' // ✅ Make sure this exists
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Upload from './pages/Upload' // ✅ Make sure this exists
 
 import './App.css'
 

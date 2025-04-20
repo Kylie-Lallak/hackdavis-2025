@@ -1,0 +1,64 @@
+#home-page{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    height: 80vh;
+
+    background: linear-gradient(to bottom, white  80%, #ae97ec);
+   
+   
+}
+#home-page-container{
+    
+}
+#homeImg{
+    max-width: 650px;
+}
+#home-text1{
+    font-family: Inter;
+    font-size: 3rem;
+    margin-bottom: -2rem;
+
+
+}
+#home-arrow{
+    width:25px ;
+}
+#home-button{
+    max-width: 200px;
+    font-family: Inter;
+    font-weight: 500;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+}
+#home-text2{
+    font-family: 'Inter', sans-serif;
+    font-size: 3rem;
+    background: linear-gradient(to right, #8a60fd, #65d6e8); /* your gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    background-clip: text;
+    color: transparent;
+    display: inline; /* Important for text */
+    
+}
+#home-title-container{
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+}
+#homeP{
+    margin-top: -1rem;
+    color: rgb(119, 119, 119);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+
+}

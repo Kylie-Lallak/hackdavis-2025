@@ -6,6 +6,8 @@ const multer = require('multer'); // For handling file uploads (the PDF)
 const fs = require('fs');
 const path = require('path');
 
+
+
 // Define Mongoose schema for a Bill
 const billSchema = new mongoose.Schema({
   /* Define the structure of your Bill data here.  For example: */
@@ -44,7 +46,7 @@ router.get('/', async (req, res) => {
     // const bills = await Bill.find();
     // res.json(bills);
 
-    res.json({ooga: "booga"})
+    res.status(200).send("ts not done yet")
   } catch (error) {
     console.error('Error fetching bills:', error);
     res.status(500).json({ error: 'Failed to fetch bills' });
@@ -56,56 +58,35 @@ router.get('/', async (req, res) => {
 // 2. Extracts text from the PDF using an API
 // 3. Sends a query to Gemini
 router.post('/', upload.single('pdf'), async (req, res) => {
+     
+  const filePath = path.join('uploads', req.file.filename); // Full path to the uploaded file
+
   try {
-    const jsonData = req.body; // The JSON object
-    const pdfFile = req.file; // The uploaded PDF file
 
-  //  if (!pdfFile) {
-  //    return res.status(400).json({ error: 'PDF file is required' });
-  //  }
+    const scribe = await import('scribe.js-ocr'); // Dynamic import
+    console.log(scribe)
 
-  //  // Step 2: Extract text from the PDF using an API
-  //  // const pdfText = await extractTextFromPdf(pdfFile.path); // Implement this function
+    console.log(scribe.default.extractText)
+    const extractedText = await scribe.default.extractText([filePath])
+  
 
-  //  if (!pdfText) {
-  //    return res.status(500).json({ error: 'Failed to extract text from PDF' });
-  //  }
+    // 3. Clean up: Delete the uploaded PDF file (optional)
+    fs.unlinkSync(filePath);
 
-  //  // Step 3: Send a query to Gemini
-  //  const geminiResponse = await sendQueryToGemini(jsonData, pdfText); // Implement this
-
-  //  // Delete the temporary PDF file
-  //  fs.unlink(pdfFile.path, (err) => {
-  //    if (err) {
-  //      console.error('Error deleting temporary file:', err);
-  //    }
-  //  });
-
-  //  // Step 4: Save to MongoDB using Mongoose
-  //  const newBill = new Bill({
-  //    /* Populate the Bill model with data from jsonData and/or the extracted PDF text.
-  //        This is an example - adjust it based on the fields in your billSchema and the
-  //        structure of your jsonData and pdfText. */
-  //    title: jsonData.title, // Example:  assuming jsonData has a title field
-  //    description: pdfText,     //  Store the extracted text
-  //    amount: jsonData.amount,
-  //    date: new Date(),
-  //    //  ... any other fields
-  //  });
-
-  //  await newBill.save(); // Save the new bill to the database
-
-  //  res.json({
-  //    message: 'Bill processed and saved successfully',
-  //    data: jsonData,
-  //    pdfText: pdfText,
-  //    geminiResponse: geminiResponse,
-  //    billId: newBill._id, //  Return the ID of the saved bill
-  //  });
+    // 4. Send the response with the extracted text
+    res.json({
+      message: 'File uploaded and OCR performed successfully.',
+      filename: req.file.filename,
+      extractedText: extractedText,
+    });
   } catch (error) {
-    console.error('Error processing bill:', error);
-    res.status(500).json({ error: 'Failed to process bill', details: error.message });
+    // 5. Handle errors robustly
+    console.error('Error during OCR or file processing:', error);
+    next(error); // Pass the error to your error-handling middleware (recommended)
+    // Or, if you don't have error-handling middleware:
+    // res.status(500).json({ error: 'An error occurred during OCR or file processing.' });
   }
+
 });
 
 // Helper function to extract text from PDF (using an example API)
